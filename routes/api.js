@@ -71,6 +71,7 @@ module.exports = function (app) {
       let bookid = req.params.id;
       //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
       if (!bookid) return res.json("missing required field _id");
+      if (!isValidObjectId(bookid)) return res.json("no book exists");
       try {
         const book = await Books.findById(bookid);
         if (!book) return res.json("no book exists");
